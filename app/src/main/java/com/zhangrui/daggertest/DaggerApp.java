@@ -2,6 +2,9 @@ package com.zhangrui.daggertest;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
+
+import javax.inject.Inject;
 
 /**
  * DESC:
@@ -12,13 +15,15 @@ public class DaggerApp extends Application {
 
     private AppComponent appComponent;
 
-//    @Inject
-//    RxBle mRxBle;
-
+    @Inject
+    RxBle mRxBle;
+    @Inject
+    SharedPreferences mSharedPreferences;
     @Override
     public void onCreate() {
         super.onCreate();
         appComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
+        appComponent.inject(this);
     }
 
     public static DaggerApp get(Context context) {
@@ -28,4 +33,9 @@ public class DaggerApp extends Application {
     public AppComponent getAppComponent() {
         return appComponent;
     }
+
+    public RxBle getRxBle() {
+        return mRxBle;
+    }
+
 }

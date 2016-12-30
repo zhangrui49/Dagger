@@ -3,6 +3,7 @@ package com.zhangrui.daggertest;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import javax.inject.Singleton;
 
@@ -36,6 +37,7 @@ public class AppModule {
     @Provides
     @Singleton
     SharedPreferences provideSp() {
+        Log.e("aaa","sp");
         return PreferenceManager.getDefaultSharedPreferences(mApp);
     }
 

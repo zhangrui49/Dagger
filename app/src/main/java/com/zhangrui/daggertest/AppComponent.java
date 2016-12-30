@@ -1,8 +1,5 @@
 package com.zhangrui.daggertest;
 
-import android.app.Application;
-import android.content.SharedPreferences;
-
 import javax.inject.Singleton;
 
 import dagger.Component;
@@ -15,11 +12,7 @@ import dagger.Component;
 @Component(modules = {AppModule.class})
 public interface AppComponent {
 
-    Application getApplication();
-
-    RxBle rxBle();
-
-    SharedPreferences sharedPreferences();
-
     void inject(DaggerApp app);
+
+    RxBle RxBle();
 }

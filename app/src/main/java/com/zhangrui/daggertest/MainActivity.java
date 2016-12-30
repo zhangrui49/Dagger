@@ -1,24 +1,30 @@
 package com.zhangrui.daggertest;
 
-import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Toast;
-
-import javax.inject.Inject;
+import android.support.v7.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
-    @Inject
-    RxBle mRxBle;
-    @Inject
-    SharedPreferences mSharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        DaggerApp.get(this).getAppComponent().rxBle();
-        DaggerApp.get(this).getAppComponent().sharedPreferences();
-        mSharedPreferences.edit().putString("aaa","dsadasdas").apply();
-        Toast.makeText(this, mSharedPreferences.getString("aaa","123456789"), Toast.LENGTH_SHORT).show();
+        //DaggerApp.get(this).getAppComponent().rxBle();
+        //DaggerActivityComponent.builder().build().inject(this);
+        DaggerApp.get(this).getRxBle();
+    }
+
+
+    //  建议写在基类Activity里
+    private  ActivityComponent getActivityComponent(){
+        return  DaggerActivityComponent.builder()
+                .appComponent(DaggerApp.get(this).getAppComponent())
+                .activityModule(getActivityModule())
+                .build();
+    }
+
+    //  建议写在基类Activity里
+    private ActivityModule getActivityModule(){
+        return new ActivityModule(this);
     }
 }

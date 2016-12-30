@@ -1,6 +1,9 @@
 package com.zhangrui.daggertest;
 
+import android.app.Activity;
+
 import dagger.Module;
+import dagger.Provides;
 
 /**
  * DESC:
@@ -8,4 +11,18 @@ import dagger.Module;
  */
 @Module
 public class ActivityModule {
+
+    private Activity mActivity;
+
+     ActivityModule(Activity activity) {
+        mActivity = activity;
+    }
+
+    @Provides
+    @ActivityScope
+    Activity activity(){
+        return mActivity;
+    }
+
+
 }
